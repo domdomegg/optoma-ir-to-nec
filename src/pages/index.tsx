@@ -1,115 +1,97 @@
-import Image from "next/image";
-import localFont from "next/font/local";
+import clsx from 'clsx';
+import { useState } from 'react';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const Home = () => {
+  const [byte1, setByte1] = useState('32');
+  const [byte2, setByte2] = useState('CD');
+  const [byte3, setByte3] = useState('02');
+  const [byte4, setByte4] = useState('');
 
-export default function Home() {
+  const isValid = isByte(byte1) && isByte(byte2) && isByte(byte3) && (isByte(byte4) || byte4 === '');
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <main className="p-8 space-y-4 max-w-2xl mx-auto">
+      <h1 className="text-3xl font-bold">Convert Optoma IR remote codes to the NEC protocol</h1>
+      <p>Got an Optoma projector? This tool will convert the manual's infrared remote control codes to codes in the NEC protocol.</p>
+      <p>These can then be used in tools that support NEC codes, like ESPHome.</p>
+      <h2 className="text-xl font-bold !mt-8">Optoma code</h2>
+      <p>Enter the Optoma code to convert from the manual.</p>
+      <div className="grid grid-cols-4 gap-2">
+        <ByteControl index={1} byte={byte1} setByte={setByte1} />
+        <ByteControl index={2} byte={byte2} setByte={setByte2} />
+        <ByteControl index={3} byte={byte3} setByte={setByte3} />
+        <ByteControl index={4} byte={byte4} setByte={setByte4} />
+      </div>
+      <details className="space-y-4">
+        <summary>Help</summary>
+        <p>You can find your manual on the <a href="https://www.optoma.co.uk/service-and-support/lookup" className="text-blue-500 underline">Optoma website</a>. Look for the section titled 'IR remote control codes', usually under 'Additional information'.</p>
+        <p>If you can't find your specific projector, but you're sure it supports IR control, try the codes for <a href="https://www.optoma.co.uk/ContentStorage/Documents/29b3f7fa-ebe0-4c0c-8208-95eed6d6e9c6.pdf#page=53" className="text-blue-500 underline">a different projector</a>.</p>
+        <p>If your manual just specifies three bytes, just leave the last one blank!</p>
+        <p>If your manual mentions repeat or NEC formats, this doesn't matter. These refer to NEC1 and NEC2 formats, the difference being that NEC2 just automatically repeats if you keep holding down the button - often used for arrow navigation or volume buttons.</p>
+      </details>
+      <h2 className="text-xl font-bold !mt-8">NEC code</h2>
+      {isValid
+        ? <NecCode byte1={byte1} byte2={byte2} byte3={byte3} byte4={byte4} />
+        : <p>Enter the first three bytes of the Optoma code</p>}
+    </main>
   );
-}
+};
+
+const ByteControl = ({ index, byte, setByte }: { index: number, byte: string; setByte: (value: string) => void }) => {
+  const isError = !isByte(byte) && byte !== '';
+
+  return (
+    <label>
+      Byte {index}<br />
+      <input
+        type="text"
+        value={byte}
+        onChange={(e) => setByte(e.target.value.replaceAll(/[^0-9A-F]/gi, '').toUpperCase())}
+        className={clsx('w-full border border-gray-300 rounded px-2 py-1 font-mono text-3xl', isError && 'border-red-500 outline-red-500')}
+      />
+      {isError && <p className="text-red-500">Invalid byte</p>}
+    </label>
+  );
+};
+
+const NecCode = ({
+  byte1, byte2, byte3, byte4,
+}: { byte1: string; byte2: string; byte3: string; byte4: string }) => {
+  const address = `0x${byte2}${byte1}`;
+  const command = `0x${byte4 || inverse(byte3)}${byte3}`;
+
+  return (
+    <>
+      <p>Address</p>
+      <code className="font-mono select-all text-3xl">{address}</code>
+      <p>Command</p>
+      <code className="font-mono select-all text-3xl">{command}</code>
+      <details className="space-y-4 !mt-8">
+        <summary>ESPHome example</summary>
+        <code className="block whitespace-pre">{`esphome:
+  name: optoma-controller
+
+# ...
+
+remote_transmitter:
+  - pin: D7
+    carrier_duty_percent: 50%
+
+button:
+  - platform: template
+    name: "Optoma control button"
+    on_press:
+      - remote_transmitter.transmit_nec:
+          address: ${address}
+          command: ${command}`}
+        </code>
+      </details>
+    </>
+  );
+};
+
+const isByte = (value: string) => /^[0-9A-F]{2}$/i.test(value);
+
+const inverse = (value: string) => (0xFF - parseInt(value, 16)).toString(16).padStart(2).toUpperCase();
+
+export default Home;
