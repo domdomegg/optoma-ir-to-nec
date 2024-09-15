@@ -2,6 +2,7 @@
   "name": "optoma-ir-to-nec",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "start": "next dev",
     "build": "next build",

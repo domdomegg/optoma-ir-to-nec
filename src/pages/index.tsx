@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Head from 'next/head';
 import { useState } from 'react';
 
 const Home = () => {
@@ -11,6 +12,9 @@ const Home = () => {
 
   return (
     <main className="p-8 space-y-4 max-w-2xl mx-auto">
+      <Head>
+        <title>Convert Optoma to NEC IR codes</title>
+      </Head>
       <h1 className="text-3xl font-bold">Convert Optoma IR remote codes to the NEC protocol</h1>
       <p>Got an Optoma projector? This tool will convert the manual's infrared remote control codes to codes in the NEC protocol.</p>
       <p>These can then be used in tools that support NEC codes, like ESPHome.</p>
