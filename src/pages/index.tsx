@@ -17,7 +17,8 @@ const Home = () => {
       </Head>
       <h1 className="text-3xl font-bold">Convert Optoma IR remote codes to the NEC protocol</h1>
       <p>Got an Optoma projector? This tool will convert the manual's infrared remote control codes to codes in the NEC protocol.</p>
-      <p>These can then be used in tools that support NEC codes, like ESPHome.</p>
+      <p>These can then be used in tools that support NEC codes, like <a href="https://esphome.io/components/remote_transmitter.html" className="text-blue-500 underline">ESPHome</a>.</p>
+      <p>An <a href="https://github.com/domdomegg/optoma-ir-to-nec" className="text-blue-500 underline">open-source</a> project by <a href="https://adamjones.me" className="text-blue-500 underline">Adam Jones</a>.</p>
       <h2 className="text-xl font-bold !mt-8">Optoma code</h2>
       <p>Enter the Optoma code to convert from the manual.</p>
       <div className="grid grid-cols-4 gap-2">
