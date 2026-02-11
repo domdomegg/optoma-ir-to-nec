@@ -6,12 +6,12 @@
   "scripts": {
     "start": "next dev",
     "build": "next build",
-    "lint": "next lint"
+    "lint": "eslint src/"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "eslint-config-domdomegg": "^1.2.3",
-    "next": "14.2.35",
+    "next": "16.1.5",
     "react": "^18",
     "react-dom": "^18"
   },
