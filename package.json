@@ -6,7 +6,7 @@
   "scripts": {
     "start": "next dev",
     "build": "next build",
-    "lint": "next lint"
+    "lint": "eslint src/"
   },
   "dependencies": {
     "clsx": "^2.1.1",
