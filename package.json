@@ -11,7 +11,7 @@
   "dependencies": {
     "clsx": "^2.1.1",
     "eslint-config-domdomegg": "^2.0.9",
-    "next": "16.1.5",
+    "next": "16.1.7",
     "react": "^18",
     "react-dom": "^18"
   },
